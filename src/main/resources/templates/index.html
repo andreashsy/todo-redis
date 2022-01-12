@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Todo</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row mt-3">
+            <div class="column">
+                <h1>My Todo</h1>
+            </div>
+        </div>
+        
+        <div class="row mt-2">
+            <div class="column">
+                <form action="/task"
+                method="POST">
+                <input type="hidden" name="contents" id="savedInfo" data-th-value="${contents}">
+                <div class='mb-2'> 
+                    <label for="task" class='form-label'>Task Name:</label>
+                    <input type="text" class='form-control' name="taskName" id="taskName" placeholder="Please enter the task name" required>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary">Add Task</button>
+                    <button type="submit" class="btn btn-warning" 
+                        formaction="/task/save" formmethod="POST" 
+                        formnovalidate>Save Task</button>
+                </div>
+                
+                </form>
+            </div>
+        </div>
+
+        <div data-th-if="${contents==null}" class="row mt-2">
+            <div class="column">
+                <h2>No Task</h2>
+
+            </div>
+        </div>
+
+        <div data-th-if="${contents!=null}" class="row">
+            <div class="column">
+                
+                    <h2>Task List</h2>
+                    <div class="list-group">
+                        <ul data-th-each="t:${tasks}">
+                            <li class="list-group-item" data-th-text="${t}"></li>
+                        </ul>
+                    </div>
+                
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
