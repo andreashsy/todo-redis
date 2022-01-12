@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +14,13 @@ import ssf.todo.repositories.TaskRepo;
 
 @Service
 public class TaskService {
+    private final Logger logger = Logger.getLogger(TaskService.class.getName());
     @Autowired
     private TaskRepo taskRepo;
 
     public boolean hasKey(String key) {
         Optional<String> opt = taskRepo.get(key);
+        logger.log(Level.INFO, "checking for " + key + ", which contains: " + opt);
         return opt.isPresent();
     }
     
