@@ -7,7 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,15 +16,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ssf.todo.Constants;
+import ssf.todo.services.TaskService;
 
 @Controller
 @RequestMapping(path="/task", produces=MediaType.TEXT_HTML_VALUE)
 public class TaskController {
     private final Logger logger = Logger.getLogger(TaskController.class.getName());
     @Autowired
-    RedisTemplate<String, String> template;
+    private TaskService taskSvc;
     
-
     @PostMapping
     public String postTask(@RequestBody MultiValueMap<String, String> form, Model model) {
         
@@ -57,6 +56,7 @@ public class TaskController {
     public String saveToDb(@RequestBody MultiValueMap<String, String> form, Model model) {
         String contents = form.getFirst("contents");
         logger.log(Level.INFO, "Saving information to database: %s".formatted(contents));
+        taskSvc.save(Constants.TODO_KEY, contents);
         return "index";
     }    
 }

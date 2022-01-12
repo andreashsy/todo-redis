@@ -27,7 +27,7 @@ public class RedisConfig {
     @Value("${spring.redis.database}")
     private String redisDatabase;
 
-    @Bean
+    @Bean(Constants.REDIS_TODO_BEAN)
     @Scope("singleton")
     public RedisTemplate<String, String> createRedisTemplate(RedisConnectionFactory connectionFactory) {
         final RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
@@ -40,6 +40,8 @@ public class RedisConfig {
         if (Constants.REDISPASSWORD != null) {
             logger.log(Level.INFO, "Setting Redis Password...");
             config.setPassword(Constants.REDISPASSWORD);
+        } else {
+            logger.log(Level.INFO, "Redis password not set!");
         }
         
         final JedisClientConfiguration jedisClient = JedisClientConfiguration.builder().build();
