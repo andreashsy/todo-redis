@@ -26,7 +26,7 @@ public class TaskService {
     
     public List<String> get(String key) {
         Optional<String> opt = taskRepo.get(key);
-        List<String> list = new LinkedList();
+        List<String> list = new LinkedList<>();
         if (opt.isPresent()) {
             for (String t: opt.get().split("\\|"))
                 list.add(t);
