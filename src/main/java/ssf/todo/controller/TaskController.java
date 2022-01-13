@@ -77,7 +77,7 @@ public class TaskController {
         } else {
             logger.log(Level.INFO, "user %s does not exist, created new user".formatted(username));
         }
-
+        model.addAttribute("username", username);
         return "form";
     }
     

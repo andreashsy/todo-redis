@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row mt-3">
             <div class="column">
-                <h1>My Todo</h1>
+                <h1><span th:text="${username}"></span>'s Todo List</h1>
             </div>
         </div>
         
@@ -38,7 +38,6 @@
         <div data-th-if="${contents==null}" class="row mt-2">
             <div class="column">
                 <h2>No Task</h2>
-
             </div>
         </div>
 
